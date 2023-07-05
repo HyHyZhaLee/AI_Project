@@ -40,7 +40,7 @@ def ai_detector(IP):
     confidence_score = prediction[0][index]
 
     # Print prediction and confidence score
-    print("Class:", class_name[2:], end="")
-    print("Confidence Score:", str(np.round(confidence_score * 100))[:-2], "%")
+    # print("Class:", class_name[2:], end="")
+    # print("Confidence Score:", str(np.round(confidence_score * 100))[:-2], "%")
 
-    return class_name[2:], data
+    return class_name[2:], str(np.round(confidence_score * 100))[:-2], data
