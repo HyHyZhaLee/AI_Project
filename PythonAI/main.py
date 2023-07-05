@@ -1,9 +1,10 @@
 # Begin import
 import time
-import random
 from scheduler import *
 from tasks import*
 # End import
+
+# Link to adafruit: https://io.adafruit.com/AI_ProjectHGL/dashboards/ai-hgl
 
 # Setting up
 # Connect to adafruit

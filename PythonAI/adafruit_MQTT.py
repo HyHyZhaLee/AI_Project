@@ -1,6 +1,5 @@
 from Adafruit_IO import MQTTClient
 import sys
-import time
 
 AIO_FEED_ID = ["ai", "humi", "temp", "image", "led", "confident-score"]
 AIO_USERNAME = "AI_ProjectHGL"
