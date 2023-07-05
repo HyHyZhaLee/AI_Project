@@ -4,7 +4,8 @@ import time
 
 AIO_FEED_ID = ["ai", "humi", "temp", "image", "led", "confident-score"]
 AIO_USERNAME = "AI_ProjectHGL"
-AIO_KEY = "aio" + "_NMuW54hPxBRRipuFGlzH4VPl5tec"
+AIO_KEY = "key_ppFS7373j0IuEZfAlPIJ9MrOVMWN"
+AIO_KEY = AIO_KEY.replace(AIO_KEY[:3], "aio")
 client = MQTTClient(AIO_USERNAME, AIO_KEY)
 
 global mess
