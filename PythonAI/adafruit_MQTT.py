@@ -27,7 +27,6 @@ def Adafruit_connect():
     client.on_subscribe = subscribe
     client.connect()
     client.loop_background()
-    return 1
 
 def publish(feed_ID, data):
     client.publish(feed_ID, data)
