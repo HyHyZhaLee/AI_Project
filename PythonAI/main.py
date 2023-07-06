@@ -1,7 +1,6 @@
 # Begin import
 import time
 from scheduler import *
-from tasks import*
 # End import
 
 # Link to adafruit: https://io.adafruit.com/AI_ProjectHGL/dashboards/ai-hgl
@@ -11,12 +10,8 @@ from tasks import*
 Adafruit_connect()
 
 # Set up scheduler
-task1 = Task1() # Uploading image
-task2 = Task2() # Publish AI result
 scheduler = Scheduler()
-
-#scheduler.add_task(task1.run, 3000, 1000)
-scheduler.add_task(task2.run, 3000, 5000)
+scheduler.Init()
 
 next_time = time.time() + 1  # The start of the next cycle
 

@@ -7,8 +7,8 @@ AIO_KEY = "key_ppFS7373j0IuEZfAlPIJ9MrOVMWN"
 AIO_KEY = AIO_KEY.replace(AIO_KEY[:3], "aio")
 client = MQTTClient(AIO_USERNAME, AIO_KEY)
 
-global mess
-mess = ""  # Initialize mess variable before use to check duplication of published data with message
+# global mess
+# mess = ""  # Initialize mess variable before use to check duplication of published data with message
 
 def connected(client):
     print("Connected to server ...")
@@ -23,12 +23,12 @@ def disconnected(client):
     sys.exit(1)
 
 def message(client, feed_id, payload):
-    global mess  # Using the global mess variable
     payload = payload.replace("\n", "")  # Remove carriage return in payload
-    if payload != mess:  # Check if the payload duplicates the published data
-        print("Receive value from server:", payload, ", feed id:", feed_id)
-    mess = ""
-
+    # global mess  # Using the global mess variable
+    # if payload != mess:  # Check if the payload duplicates the published data
+    #     print("Receive value from server:", payload, ", feed id:", feed_id)
+    # mess = ""
+    print("Receive value from server:", payload, ", feed id:", feed_id)
 def Adafruit_connect():
     client.on_connect = connected
     client.on_disconnect = disconnected
@@ -38,7 +38,7 @@ def Adafruit_connect():
     client.loop_background()
 
 def publish(feed_ID, data):
-    global mess  # Using the global mess variable
     client.publish(feed_ID, data)
-    print("Published data to feed:", feed_ID)
-    mess = str(data)  # Store the data value in the variable mess
+    # global mess  # Using the global mess variable
+    # print("Published data to feed:", feed_ID)
+    # mess = str(data)  # Store the data value in the variable mess
