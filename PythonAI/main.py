@@ -11,7 +11,11 @@ Adafruit_connect()
 
 # Set up scheduler
 scheduler = Scheduler()
-scheduler.Init()
+
+task1 = Task1("192.168.50.120") # Uploading image and AI_Result
+scheduler.add_task(task1.run, 3000, 100)
+scheduler.add_task(task1.publishResult, 3000, 5000)
+scheduler.add_task(task1.publishImage, 3000, 100)
 
 next_time = time.time() + 1  # The start of the next cycle
 

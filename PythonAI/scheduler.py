@@ -13,12 +13,6 @@ class Scheduler:
     def __init__(self):
         self.tasks = []
 
-    def Init(self):
-        task1 = Task1() # Uploading image and AI_Result
-        self.add_task(task1.run, 3000, 100)
-        self.add_task(task1.publishResult, 3000, 5000)
-        self.add_task(task1.publishImage, 3000, 100)
-
     def add_task(self, task_func, delay, period):
         if len(self.tasks) < self.MAX_TASKS:
             task = Task(task_func, delay / self.TICK, period / self.TICK)
