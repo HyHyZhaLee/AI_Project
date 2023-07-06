@@ -8,7 +8,10 @@ class Task1:
         self.ai_result = ""
         self.confident = ""
         self.image = ""
-        print("Init task 1: Publishing image and AI result with IP:", IP)
+        if IP == 0 or IP == 1:
+            print("Init task 1: Publishing image and AI result with default camera")
+        else:
+            print("Init task 1: Publishing image and AI result with IP:", IP)
 
     def run(self):
         self.ai_result, self.confident, self.image = ai_detector(self.IP)
