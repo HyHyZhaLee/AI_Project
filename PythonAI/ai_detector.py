@@ -19,7 +19,7 @@ def ai_detector(IP):
     # Grab the webcamera's image.
     ret, image = camera.read()
     res, frame = cv2.imencode('.jpg', image)
-    data = base64.b64decode(frame)
+    data = base64.b64encode(frame)
 
     # Resize the raw image into (224-height,224-width) pixels
     image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_AREA)
@@ -43,4 +43,4 @@ def ai_detector(IP):
     # print("Class:", class_name[2:], end="")
     # print("Confidence Score:", str(np.round(confidence_score * 100))[:-2], "%")
 
-    return class_name[2:], str(np.round(confidence_score * 100))[:-2], data
+    return class_name[2:],  str(np.round(confidence_score * 100))[:-2] + "%", data

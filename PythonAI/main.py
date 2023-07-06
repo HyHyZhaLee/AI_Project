@@ -15,7 +15,7 @@ task1 = Task1() # Uploading image
 task2 = Task2() # Publish AI result
 scheduler = Scheduler()
 
-scheduler.add_task(task1.run, 3000, 1000)
+#scheduler.add_task(task1.run, 3000, 1000)
 scheduler.add_task(task2.run, 3000, 5000)
 
 next_time = time.time() + 1  # The start of the next cycle

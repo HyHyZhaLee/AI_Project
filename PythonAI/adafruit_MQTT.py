@@ -42,9 +42,3 @@ def publish(feed_ID, data):
     client.publish(feed_ID, data)
     print("Published data to feed:", feed_ID)
     mess = str(data)  # Store the data value in the variable mess
-
-# Adafruit_connect()
-#
-# # while True:
-# #     publish("Temp", 30.5)
-# #     time.sleep(3)
