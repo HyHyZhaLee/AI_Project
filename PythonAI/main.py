@@ -9,22 +9,27 @@ from scheduler import *
 # Connect to adafruit
 Adafruit_connect()
 
+# Setup camera
+camera = Camera(0)
+
 # Set up scheduler
 scheduler = Scheduler()
 
-task1 = Task1("http://192.168.50.120") # Uploading image and AI_Result with IP
-scheduler.add_task(task1.run, 3000, 100)
-scheduler.add_task(task1.publishResult, 3000, 5000)
-scheduler.add_task(task1.publishImage, 3000, 100)
+# Adding task
+task1 = Task1(camera) # Uploading image and AI_Result with IP
+scheduler.add_task(task1.run, 3000, 100) # Camera delay for 3s and run checking every 100ms
+scheduler.add_task(task1.publishResult, 3000, 5000)  # Delay for 3s and Publish AI result with confident score every 5s
+scheduler.add_task(task1.publishImage, 3000, 100) # Delay for 3s and Publish Image every 100ms
 
-next_time = time.time() + 1  # The start of the next cycle
+# Clock cycle define for time.sleep more effective
+next_time = time.time() + 1  # The next cycle
 
-
+# Super loop program
 while True:
-    current_time = time.time()
+    current_time = time.time()  # This time cycle
     if current_time >= next_time:
         # TODO
-        scheduler.update()
-        scheduler.dispatch_tasks()
+        scheduler.update() # scheduler timer run
+        scheduler.dispatch_tasks()  # dispatch tasks that on run flag
         next_time += 1  # Update the start of the next cycle
     time.sleep(0.01)  # Sleep a very small time to avoid excessive CPU usage
