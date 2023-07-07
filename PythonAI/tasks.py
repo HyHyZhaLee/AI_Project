@@ -22,5 +22,3 @@ class Task1:
     def publishResult(self):
         publish("ai", self.ai_result)
         publish("confident-score", self.confident)
-
-
