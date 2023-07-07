@@ -1,4 +1,4 @@
-from tasks import *
+
 class Task:
     def __init__(self, task_func, delay, period):
         self.task_func = task_func
@@ -29,7 +29,6 @@ class Scheduler:
                 task.run_me += 1
 
     def delete_task(self, task):
-        print("1 task have been deleted!")
         self.tasks.remove(task)
 
     def dispatch_tasks(self):
