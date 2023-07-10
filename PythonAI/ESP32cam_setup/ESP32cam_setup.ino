@@ -40,13 +40,12 @@ const char* password = "123456789";
 void startCameraServer();
 void setupLedFlash(int pin);
 
-void setup() {
-  Serial.begin(115200);
-  WiFi.mode(WIFI_AP_STA);
-  /* start SmartConfig */
+void setupSmartConfig(){
+      /* start SmartConfig */
   WiFi.beginSmartConfig();
- 
+  
   /* Wait for SmartConfig packet from mobile */
+  Serial.println("");
   Serial.println("Waiting for SmartConfig.");
   while (!WiFi.smartConfigDone()) {
     delay(500);
@@ -54,17 +53,25 @@ void setup() {
   }
   Serial.println("");
   Serial.println("SmartConfig done.");
- 
+  
   /* Wait for WiFi to connect to AP */
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
-  // Serial.println("WiFi Connected.");
-  // Serial.print("IP Address: ");
-  // Serial.println(WiFi.localIP());
+  Serial.println("WiFi connected");
+
+  startCameraServer();
+
+  Serial.print("Camera Ready! Use 'http://");
+  Serial.print(WiFi.localIP());
+  Serial.println("' to connect");
+}
+
+void setup() {
+  Serial.begin(115200);
+  WiFi.mode(WIFI_AP_STA);
   Serial.setDebugOutput(true);
-  // Serial.println();
 
   camera_config_t config;
   config.ledc_channel = LEDC_CHANNEL_0;
@@ -152,21 +159,8 @@ void setup() {
   setupLedFlash(LED_GPIO_NUM);
 #endif
 
-  // WiFi.begin(ssid, password);
-  // WiFi.setSleep(false);
-
-  // while (WiFi.status() != WL_CONNECTED) {
-  //   delay(500);
-  //   Serial.print(".");
-  // }
-  Serial.println("");
-  Serial.println("WiFi connected");
-
-  startCameraServer();
-
-  Serial.print("Camera Ready! Use 'http://");
-  Serial.print(WiFi.localIP());
-  Serial.println("' to connect");
+  // Setup Smart Config and server
+  setupSmartConfig();
 }
 
 void loop() {
