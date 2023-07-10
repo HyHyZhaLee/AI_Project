@@ -1,4 +1,4 @@
-from ai_detector import *
+from Camera import *
 from adafruit_MQTT import *
 
 class Task2:

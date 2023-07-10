@@ -9,7 +9,7 @@ from PrivateTask.task2 import *
 
 # Setting up
 # Setup camera
-camera = Camera(0)
+camera = Camera('192.168.100.112')
 
 # Set up scheduler
 scheduler = Scheduler()

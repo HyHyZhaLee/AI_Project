@@ -2,6 +2,7 @@ from keras.models import load_model  # TensorFlow is required for Keras to work
 import cv2  # Install opencv-python
 import numpy as np
 import base64
+import requests
 
 class Camera:
     def __init__(self, IP):
@@ -17,7 +18,14 @@ class Camera:
         # CAMERA can be 0 or 1 based on default camera of your computer
         # An ip of your camera can be used as well
         self.IP = IP
-        self.camera = cv2.VideoCapture(IP)
+        if IP == 0 or IP == 1:
+            self.camera = cv2.VideoCapture(0)
+        else:
+            port = 81
+            # URL for streaming
+            stream_url = 'http://{}:{}/stream'.format(IP, port)
+            # Tạo một đối tượng VideoCapture với URL streaming
+            self.camera = cv2.VideoCapture(stream_url)
 
     def ai_detector(self):
         # Grab the webcamera's image.
@@ -46,5 +54,20 @@ class Camera:
         # Print prediction and confidence score
         # print("Class:", class_name[2:], end="")
         # print("Confidence Score:", str(np.round(confidence_score * 100))[:-2], "%")
-
         return class_name[2:],  str(np.round(confidence_score * 100))[:-2] + "%", data
+
+    def adjust_led_intensity(self, intensity):
+        # The IP address of the ESP32-CAM
+        ip_address = self.IP
+
+        # Create LED control URL with new brightness value
+        url = 'http://{}/control?var=led_intensity&val={}'.format(ip_address, intensity)
+
+        # Send HTTP GET request to adjust LED brightness
+        response = requests.get(url)
+
+        # Check if the request was successful or not
+        if response.status_code == 200:
+            print('LED brightness has been adjusted successfully.')
+        else:
+            print('LED brightness cannot be adjusted.')
