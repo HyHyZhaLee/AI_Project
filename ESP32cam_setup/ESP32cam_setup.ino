@@ -1,6 +1,7 @@
 #include "esp_camera.h"
 #include <WiFi.h>
 #include <Arduino.h>
+#include <EEPROM.h>
 //
 // WARNING!!! PSRAM IC required for UXGA resolution and high JPEG quality
 //            Ensure ESP32 Wrover Module or other board with PSRAM is selected
@@ -34,17 +35,81 @@
 // ===========================
 // Enter your WiFi credentials
 // ===========================
-const char* ssid = "abcd";
-const char* password = "123456789";
 
 void startCameraServer();
 void setupLedFlash(int pin);
 
-void setupSmartConfig(){
-      /* start SmartConfig */
+#include <EEPROM.h>
+
+void saveWifiCredentials(const char* ssid, const char* password) {
+  int ssidLength = strlen(ssid);
+  int passLength = strlen(password);
+
+  // Ghi độ dài của SSID và mật khẩu vào EEPROM (2 byte)
+  EEPROM.write(0, ssidLength);
+  EEPROM.write(1, passLength);
+
+  // Ghi dữ liệu SSID và mật khẩu vào EEPROM (từ byte 2)
+  for (int i = 0; i < ssidLength; i++) {
+    EEPROM.write(i + 2, ssid[i]);
+  }
+  for (int i = 0; i < passLength; i++) {
+    EEPROM.write(i + 2 + ssidLength, password[i]);
+  }
+
+  EEPROM.commit();
+}
+
+void setupSmartConfig() {
+  // Kiểm tra xem đã lưu trữ thông tin Wi-Fi trước đó chưa
+  int ssidLength = EEPROM.read(0);
+  int passLength = EEPROM.read(1);
+
+  if (ssidLength > 0 && passLength > 0) {
+    char* ssid = new char[ssidLength + 1];
+    char* password = new char[passLength + 1];
+
+    // Đọc thông tin SSID và mật khẩu từ EEPROM
+    for (int i = 0; i < ssidLength; i++) {
+      ssid[i] = char(EEPROM.read(i + 2));
+    }
+    ssid[ssidLength] = '\0';
+
+    for (int i = 0; i < passLength; i++) {
+      password[i] = char(EEPROM.read(i + 2 + ssidLength));
+    }
+    password[passLength] = '\0';
+
+    // Kết nối Wi-Fi với thông tin đã lưu trữ
+    WiFi.begin(ssid, password);
+    delete[] ssid;
+    delete[] password;
+    
+    // Chờ kết nối Wi-Fi
+    int timeout = 10; // Thời gian chờ kết nối (giây)
+    while (WiFi.status() != WL_CONNECTED && timeout > 0) {
+      delay(1000);
+      timeout--;
+    }
+
+    if (WiFi.status() == WL_CONNECTED) {
+      // Kết nối Wi-Fi thành công
+      Serial.println("WiFi connected");
+      startCameraServer();
+
+      Serial.print("Camera Ready! Use 'http://");
+      Serial.print(WiFi.localIP());
+      Serial.println("' to connect");
+      
+      return;
+    }
+  }
+
+  // Nếu chưa lưu trữ thông tin Wi-Fi hoặc kết nối không thành công,
+  // tiến hành SmartConfig
+  Serial.println("There is no saved wifi ID and password!");
   WiFi.beginSmartConfig();
-  
-  /* Wait for SmartConfig packet from mobile */
+
   Serial.println("");
   Serial.println("Waiting for SmartConfig.");
   while (!WiFi.smartConfigDone()) {
@@ -53,23 +118,36 @@ void setupSmartConfig(){
   }
   Serial.println("");
   Serial.println("SmartConfig done.");
-  
-  /* Wait for WiFi to connect to AP */
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
+
+  // Lưu trữ thông tin Wi-Fi
+  const char* ssid = WiFi.SSID().c_str();
+  const char* password = WiFi.psk().c_str();
+  saveWifiCredentials(ssid, password);
+
+  // Chờ kết nối Wi-Fi
+  int timeout = 10; // Thời gian chờ kết nối (giây)
+  while (WiFi.status() != WL_CONNECTED && timeout > 0) {
+    delay(1000);
+    timeout--;
   }
-  Serial.println("WiFi connected");
 
-  startCameraServer();
+  if (WiFi.status() == WL_CONNECTED) {
+    // Kết nối Wi-Fi thành công
+    Serial.println("WiFi connected");
+    startCameraServer();
 
-  Serial.print("Camera Ready! Use 'http://");
-  Serial.print(WiFi.localIP());
-  Serial.println("' to connect");
+    Serial.print("Camera Ready! Use 'http://");
+    Serial.print(WiFi.localIP());
+    Serial.println("' to connect");
+  } else {
+    // Kết nối Wi-Fi không thành công
+    Serial.println("Failed to connect to WiFi");
+  }
 }
 
 void setup() {
   Serial.begin(115200);
+  EEPROM.begin(512);
   WiFi.mode(WIFI_AP_STA);
   Serial.setDebugOutput(true);
 
