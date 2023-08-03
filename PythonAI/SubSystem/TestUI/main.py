@@ -12,42 +12,65 @@ class MyGridLayout(GridLayout):
         # Call grid layout constructor
         super(MyGridLayout, self).__init__(**kwargs)
         # Set columns
-        self.cols = 2
+        self.cols = 1
+        self.row_force_default = True
+        self.row_default_height = 120
+        self.col_force_default = True
+        self.col_default_width = 100
+        # Create a second gridlayout
+        self.top_grid = GridLayout(row_force_default=True,
+                                   row_default_height=40,
+                                   col_force_default=True,
+                                   col_default_width=100)
+        self.top_grid.cols = 2
 
         # Add widgets
-        self.add_widget(Label(text="Name: "))
+        self.top_grid.add_widget(Label(text="Name: "))
         # Add Input Box
-        self.name = TextInput(multiline=False)
-        self.add_widget(self.name)
+        self.name = TextInput(multiline=True)
+        self.top_grid.add_widget(self.name)
 
-        self.add_widget(Label(text="Favorite Pizza: "))
+        self.top_grid.add_widget(Label(text="Favorite Pizza: "))
         # Add Input Box
         self.pizza = TextInput(multiline=False)
-        self.add_widget(self.pizza)
+        self.top_grid.add_widget(self.pizza)
 
-        self.add_widget(Label(text="Favorite Color: "))
+        self.top_grid.add_widget(Label(text="Favorite Color: "))
         # Add Input Box
         self.color = TextInput(multiline=False)
-        self.add_widget(self.color)
+        self.top_grid.add_widget(self.color)
+
+        # Add the new top_grid to our app
+        self.add_widget(self.top_grid)
 
         # Create a submit button
-        self.submit = Button(text="Submit", font_size = 32)
+        self.submit = Button(text="Submit",
+                             font_size=32,
+                             size_hint_y=None,
+                             height=50,
+                             size_hint_x=None,
+                             width=200
+                             )
         # Bind the button
         self.submit.bind(on_press=self.press)
         self.add_widget(self.submit)
+
     def press(self, instance):
         name = self.name.text
         pizza = self.pizza.text
         color = self.color.text
-        #print(f"Hello, {name}! You like {pizza} pizza, and your favorite color is {color}! ")
+        # print(f"Hello, {name}! You like {pizza} pizza, and your favorite color is {color}! ")
         self.add_widget(Label(text=f'Hello, {name}! You like {pizza} pizza, and your favorite color is {color}!'))
         # Clear the text
         self.name.text = ""
         self.pizza.text = ""
         self.color.text = ""
+
+
 class MyApp(App):
     def build(self):
         return MyGridLayout()
+
 
 if __name__ == '__main__':
     MyApp().run()

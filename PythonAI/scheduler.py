@@ -1,10 +1,10 @@
-
 class Task:
     def __init__(self, task_func, delay, period):
         self.task_func = task_func
         self.delay = delay
         self.period = period
         self.run_me = 0
+
 
 class Scheduler:
     TICK = 1000

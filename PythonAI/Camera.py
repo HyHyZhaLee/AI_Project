@@ -4,6 +4,7 @@ import numpy as np
 import base64
 import requests
 
+
 class Camera:
     def __init__(self, IP):
         # Disable scientific notation for clarity
@@ -28,7 +29,7 @@ class Camera:
             self.camera = cv2.VideoCapture(stream_url)
 
     def ai_detector(self):
-        # Grab the webcamera's image.
+        # Grab the web camera's image.
         ret, image = self.camera.read()
         res, frame = cv2.imencode('.jpg', image)
         data = base64.b64encode(frame)
@@ -54,7 +55,7 @@ class Camera:
         # Print prediction and confidence score
         # print("Class:", class_name[2:], end="")
         # print("Confidence Score:", str(np.round(confidence_score * 100))[:-2], "%")
-        return class_name[2:],  str(np.round(confidence_score * 100))[:-2] + "%", data
+        return class_name[2:], str(np.round(confidence_score * 100))[:-2] + "%", data
 
     def adjust_led_intensity(self, intensity):
         # The IP address of the ESP32-CAM
