@@ -1,5 +1,6 @@
 #:import IconButton widgets.buttons.IconButton
 #:import Text widgets.labels.Text
+#:import ShadowBox widgets.shadow.ShadowBox
 <MainWindow>:
     spacing: dp(8)
     canvas.before:
@@ -13,10 +14,12 @@
         id: nav_menu
         size_hint_x: .15
         orientation: 'vertical'
-        padding: dp(8)
+
         BoxLayout:
             id: logo_box
             size_hint_y:.1
+            padding: dp(8)
+            spacing: dp(4)
             AnchorLayout:
                 anchor_x: 'right'
                 size_hint_x:None
@@ -25,8 +28,9 @@
                     source: 'assets/imgs/logo.png'
                     size_hint_y: None
                     height: dp(32)
+
             Text:
-                text: 'Unique Dash'
+                text: 'CSE BKU'
                 font_name: app.fonts.heading
                 font_size: app.fonts.size.h3
         GridLayout:
@@ -88,12 +92,12 @@
 
     BoxLayout:
         orientation: 'vertical'
-        padding: [dp(0),dp(8),dp(12),dp(8)]
         size_hint_x: .85
+        padding: [dp(16),dp(8),dp(12),dp(8)]
         spacing: dp(8)
         canvas.before:
             Color:
-                rgba: [1,1,0,0.1]
+                rgba: rgba("f2f2f2")
             Rectangle:
                 pos: self.pos
                 size: self.size
@@ -101,13 +105,27 @@
         BoxLayout:
             id: actionbar
             size_hint_y: None
-            height: dp(64)
-            canvas.before:
-                Color:
-                    rgba: [1,0,0,0.1]
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
+            height: dp(54)
+
+            BoxLayout:
+                size_hint_x: .7
+                orientation: 'vertical'
+                Text:
+                    text: '%s'%root.greeting
+                    font_size: app.fonts.size.h3
+                    font_name: app.fonts.heading
+                    color: app.colors.secondary
+                    size_hint_y: .6
+                Text:
+                    text: '%s'%root.format_date
+                    font_size: app.fonts.size.h6
+                    font_name: app.fonts.subheading
+                    color: app.colors.grey_dark
+                    size_hint_y: .4
+
+            BoxLayout:
+                size_hint_x: .3
+                       
 
         BoxLayout:
             ScreenManager:
@@ -130,7 +148,7 @@
     group: 'tabs'
     size_hint_y: None
     height: dp(42)
-    spacing: dp(4)
+    spacing: dp(5)
     canvas.before:
         Color:
             rgba: [0,0,0,0] if self.state == 'normal' else rgba("#E1F1FF")
