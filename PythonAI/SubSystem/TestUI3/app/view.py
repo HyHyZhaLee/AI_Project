@@ -33,6 +33,7 @@ class MainWindow(BoxLayout):
     username = "Huy Gia Ly"
     greeting = StringProperty(greet_by_time(username))
     format_date = StringProperty(format_date())
+    avatar = StringProperty("assets/imgs/avatar.jpg")
     def __init__(self, **kw):
         super().__init__(**kw)
 

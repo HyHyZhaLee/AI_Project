@@ -97,7 +97,7 @@
         spacing: dp(8)
         canvas.before:
             Color:
-                rgba: rgba("f2f2f2")
+                rgba: app.colors.grey_light
             Rectangle:
                 pos: self.pos
                 size: self.size
@@ -125,7 +125,41 @@
 
             BoxLayout:
                 size_hint_x: .3
-                       
+                spacing: dp(8)
+                Widget:
+                AnchorLayout:
+                    ShadowBox:
+                        radius: [self.height]
+                        size_hint: [None, None]
+                        size: [dp(42), dp(42)]
+                        padding: dp(10)
+                        elevation: 4
+                        IconButton:
+                            source: 'assets/icons/ic_search.png'
+                AnchorLayout:
+                    ShadowBox:
+                        radius: [self.height]
+                        size_hint: [None, None]
+                        size: [dp(42), dp(42)]
+                        padding: dp(10)
+                        elevation: 4
+                        IconButton:
+                            source: 'assets/icons/ic_notif.png'
+                AnchorLayout:
+                    ShadowBox:
+                        radius: [self.height]
+                        size_hint: [None, None]
+                        size: [dp(42), dp(42)]
+                        elevation: 4
+                        Widget:
+                            canvas.before:
+                                Color:
+                                    rgba: [1,1,1,1]
+                                Ellipse:
+                                    pos: self.pos
+                                    size: self.size
+                                    source: root.avatar
+
 
         BoxLayout:
             ScreenManager:
