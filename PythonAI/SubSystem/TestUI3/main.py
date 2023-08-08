@@ -1,6 +1,5 @@
 from os.path import dirname, join
 from PIL import ImageGrab
-from kivy import Config
 
 from app import MainApp
 from kivy.core.window import Window
