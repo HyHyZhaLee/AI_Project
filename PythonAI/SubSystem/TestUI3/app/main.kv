@@ -29,11 +29,17 @@
                 text: 'Unique Dash'
                 font_name: app.fonts.heading
                 font_size: app.fonts.size.h3
-        BoxLayout:
+        GridLayout:
             id: tabs_box
-            orientation:'vertical'
-            spacing: dp(8)
-            size_hint_y:.6
+            cols: 1
+            spacing: dp(4)
+            size_hint_y: .6
+            canvas.before:
+                Color:
+                    rgba: rgba("#c4c4c4")
+                Rectangle:
+                    pos: self.pos
+                    size: [self.size[0], dp(1)]
             NavTab:
                 text: 'Overview'
                 state: 'down'
@@ -59,9 +65,23 @@
                 text: 'Orders'
                 icon: 'assets/icons/ic_bag.png'
                 icon_active: 'assets/icons/ic_bag_active.png'
-        BoxLayout:
+        GridLayout:
             id: sec_box
-            size_hint_y:.3
+            size_hint_y: .3
+            cols: 1
+            padding: dp(12)
+            NavTab:
+                text: 'Support'
+                icon: 'assets/icons/ic_chat.png'
+                icon_active: 'assets/icons/ic_chat_active.png'
+            NavTab:
+                text: 'Settings'
+                icon: 'assets/icons/ic_settings.png'
+                icon_active: 'assets/icons/ic_settings_active.png'
+            NavTab:
+                text: 'Exit'
+                icon: 'assets/icons/ic_signout.png'
+                icon_active: 'assets/icons/ic_signout_active.png'
 
 
 
@@ -108,7 +128,9 @@
     background_down: ''
     background_color: [0,0,0,0]
     group: 'tabs'
-    color: rgba('c4c4c4') if self.state == 'normal' else app.colors.primary
+    size_hint_y: None
+    height: dp(42)
+    spacing: dp(4)
     canvas.before:
         Color:
             rgba: [0,0,0,0] if self.state == 'normal' else rgba("#E1F1FF")
