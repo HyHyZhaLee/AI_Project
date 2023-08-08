@@ -11,12 +11,21 @@
     BoxLayout:
         id: nav_menu
         size_hint_x: .15
-        canvas.before:
-            Color:
-                rgba: [0,0,1,0.1]
-            Rectangle:
-                pos: self.pos
-                size: self.size
+        orientation: 'vertical'
+        padding: dp(8)
+        Button:
+            id: logo_box
+            size_hint_y:.1
+        Button:
+            id: tabs_box
+            size_hint_y:.6
+        Button:
+            id: sec_box
+            size_hint_y:.3
+
+
+
+
     BoxLayout:
         orientation: 'vertical'
         padding: [dp(0),dp(8),dp(12),dp(8)]
@@ -28,6 +37,7 @@
             Rectangle:
                 pos: self.pos
                 size: self.size
+
         BoxLayout:
             id: actionbar
             size_hint_y: None
@@ -38,6 +48,7 @@
                 Rectangle:
                     pos: self.pos
                     size: self.size
+
         BoxLayout:
             ScreenManager:
                 id: scrn_mngr
