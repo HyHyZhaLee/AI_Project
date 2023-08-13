@@ -1,8 +1,14 @@
 #:import IconButton widgets.buttons.IconButton
 #:import Text widgets.labels.Text
 #:import ShadowBox widgets.shadow.ShadowBox
-#:import Home views.home.Home
 #:import BoxWithShadow widgets.BoxWithShadow.BoxWithShadow
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+
+#:import Dashboard views.dashboard.Dashboard
+#:import Analytics views.analytics.Analytics
+#:import Aimodel views.aimodel.Aimodel
+#:import Gamepad views.gamepad.Gamepad
+#:import Smartconfig views.smartconfig.Smartconfig
 <MainWindow>:
     spacing: dp(8)
     canvas.before:
@@ -47,28 +53,33 @@
                     pos: self.pos
                     size: [self.size[0], dp(1)]
             NavTab:
-                text: 'Overview'
+                text: 'Dashboard'
                 state: 'down'
                 icon: 'assets/icons/ic_grid.png'
                 icon_active: 'assets/icons/ic_grid_active.png'
+                on_release: scrn_mngr.current = 'scrn_dashboard'
             NavTab:
                 text: 'Analytics'
                 icon: 'assets/icons/ic_trend.png'
                 icon_active: 'assets/icons/ic_trend_active.png'
+                on_release: scrn_mngr.current = 'scrn_analytics'
             NavTab:
                 text: 'Gamepad'
                 #cacaca
                 icon: 'assets/icons/ic_gamepad.png'
                 #85c4db
                 icon_active: 'assets/icons/ic_gamepad_active.png'
+                on_release: scrn_mngr.current = 'scrn_gamepad'
             NavTab:
                 text: 'AI model'
                 icon: 'assets/icons/ic_ai.png'
                 icon_active: 'assets/icons/ic_ai_active.png'
+                on_release: scrn_mngr.current = 'scrn_aimodel'
             NavTab:
                 text: 'Smart config'
                 icon: 'assets/icons/ic_broadcast.png'
                 icon_active: 'assets/icons/ic_broadcast_active.png'
+                on_release: scrn_mngr.current = 'scrn_smartconfig'
 
         GridLayout:
             id: sec_box
@@ -87,9 +98,6 @@
                 text: 'Exit'
                 icon: 'assets/icons/ic_signout.png'
                 icon_active: 'assets/icons/ic_signout_active.png'
-
-
-
 
     BoxLayout:
         orientation: 'vertical'
@@ -164,19 +172,32 @@
 
         BoxLayout:
             ScreenManager:
+                transition: NoTransition()
                 id: scrn_mngr
                 Screen:
-                    name: 'scrn_overview'
-                    Home:
-                        id: home
+                    name: 'scrn_dashboard'
+                    Dashboard:
+                        id: dashboard
                 Screen:
                     name: 'scrn_analytics'
+                    id: scrn_analytics
+                    Analytics:
+                        id: analytics
                 Screen:
-                    name: 'scrn_sales'
+                    name: 'scrn_aimodel'
+                    id: scrn_aimodel
+                    Aimodel:
+                        id: aimodel
                 Screen:
-                    name: 'scrn_customers'
+                    name: 'scrn_gamepad'
+                    id: scrn_gamepad
+                    Gamepad:
+                        id: gamepad
                 Screen:
-                    name: 'scrn_finance'
+                    name: 'scrn_smartconfig'
+                    id: scrn_smartconfigl
+                    Smartconfig:
+                        id: smartconfig
 
 <NavTab>:
     background_normal: ''

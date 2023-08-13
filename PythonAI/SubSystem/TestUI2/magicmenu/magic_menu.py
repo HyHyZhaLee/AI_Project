@@ -19,7 +19,7 @@ class MagicMenu(ElevationCard):
     color_marker = ColorProperty([0,0,0,0])
     menu_buttons = DictProperty(
         {
-            "home": "Red",
+            "dashboard": "Red",
             "account": "Indigo",
             "message": "Teal",
             "help": "Yellow",
