@@ -93,11 +93,48 @@
                         size_hint_x: .2
                 BoxLayout:
                     id: graph
+                    padding: dp(8)
 
         BoxLayout:
             spacing: dp(8)
             size_hint_y: .3
             BoxWithShadow:
+                spacing: dp(8)
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: dp(8)
+                    padding: [dp(12), dp(8)]
+                    canvas.before:
+                        Color:
+                            rgba: app.colors.grey_light
+                        Rectangle:
+                            size: [dp(1), self.size[1]]
+                            pos: [self.pos[0]+self.size[0], self.pos[1]]
+                    Text:
+                        text:"Social source"
+                        font_name: app.fonts.heading
+                        color: app.colors.black
+                        size_hint_y: None
+                        height: dp(24)
+                        pos_hint: {"center_y": 0.5}  # Đặt pos_hint để căn theo giữa chiều dọc
+                    BoxLayout:
+
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: dp(8)
+                    padding: [dp(12), dp(8)]
+                    canvas.before:
+                        Color:
+                            rgba: app.colors.grey_light
+                        Rectangle:
+                            size: [dp(1), self.size[1]]
+                            pos: [self.pos[0]+self.size[0], self.pos[1]]
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: dp(8)
+                    padding: [dp(12), dp(8)]
+
     BoxLayout:
         size_hint_x: .25
         BoxWithShadow:

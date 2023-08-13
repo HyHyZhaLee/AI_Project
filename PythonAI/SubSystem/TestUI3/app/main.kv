@@ -186,6 +186,7 @@
     size_hint_y: None
     height: dp(42)
     spacing: dp(5)
+    on_release: self.state = "down"
     canvas.before:
         Color:
             rgba: [0,0,0,0] if self.state == 'normal' else rgba("#E1F1FF")
