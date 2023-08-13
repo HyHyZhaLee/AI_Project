@@ -20,16 +20,14 @@ kv = """
             blur_radius: 20
             spread_radius: -10, -10
             border_radius: 16,16,16,16
-    BoxLayout:
-        pos: root.center  
-        canvas:
-            # target element statements
-            Color:
-                rgba: 1, 1, 1, 1
-            RoundedRectangle:
-                pos: self.pos
-                size: self.size
-                radius: [20,20,20,20]  # Đặt bán kính bo tròn ở đây
+    canvas:
+        # target element statements
+        Color:
+            rgba: 1, 1, 1, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [18,18,18,18]  # Đặt bán kính bo tròn ở đây
 """
 Builder.load_string(kv)
 class BoxWithShadow(ButtonBehavior, BoxLayout):
