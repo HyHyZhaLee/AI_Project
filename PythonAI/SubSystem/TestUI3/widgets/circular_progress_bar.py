@@ -348,13 +348,21 @@ FloatLayout:
         progress_colour: "010"
         background_colour: "001"
         cap_precision: 3
-        max: 300
+        max: 150
         min: 100
         widget_size: 300
         label: _label
     CircularProgressBar
         pos: 400, 100
-''')
+    CircularProgressBar
+        pos: 650, 100
+        cap_style: "SqUArE"
+        thickness: 5
+        progress_colour: 0.8, 0.8, 0.5, 1
+        cap_precision:100
+        max: 10
+        widget_size: 100
+        label: _another_label''')
 
         # Animate the progress bar
         Clock.schedule_interval(self.animate, 0.05)

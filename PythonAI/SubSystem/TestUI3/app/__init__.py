@@ -1,11 +1,10 @@
-
 from kivy.app import App
 from kivy.utils import QueryDict, rgba
 from kivy.metrics import dp, sp
-
+from kivymd.app import MDApp
 from .view import MainWindow
 
-class MainApp(App):
+class MainApp(MDApp):
     colors = QueryDict()
     colors.primary = rgba("#2D9CDB")
     colors.secondary = rgba("#16213E")

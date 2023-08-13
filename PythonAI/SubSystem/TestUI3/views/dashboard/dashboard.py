@@ -14,5 +14,6 @@ import matplotlib.pyplot as plt
 Builder.load_file('views/dashboard/dashboard.kv')
 
 class Dashboard(BoxLayout):
+
     def __init__(self, **kw) -> None:
         super().__init__(**kw)
