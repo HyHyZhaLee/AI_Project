@@ -1,23 +1,36 @@
+from kivy.core.image import Texture
 from kivy.lang import Builder
 from kivymd.app import MDApp
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivy.uix.image import Image
 from kivy.clock import Clock
 
-from keras.models import load_model  # TensorFlow is required for Keras to work
-import cv2  # Install opencv-python
+import cv2
 import numpy as np
-import base64
-import requests
 
 kv = """
 <CameraWidget>:
-    orientation:'vertical'
+    orientation: 'vertical'
     padding: dp(8)
     spacing: dp(16)
-    Image: 
-        source:'./assets/imgs/NoCamera.png'
+    Image:
+        id: camera_image
+        source: './assets/imgs/NoCamera.png'
 """
+
 Builder.load_string(kv)
+
 class CameraWidget(MDBoxLayout):
-    pass
+    def __init__(self, **kwargs):
+        super(CameraWidget, self).__init__(**kwargs)
+        self.capture = cv2.VideoCapture(0)
+        Clock.schedule_interval(self.load_video, 1.0 / 30.0)
+
+    def load_video(self, dt):
+        ret, frame = self.capture.read()
+        if ret:
+            buffer = cv2.flip(frame, 0).tobytes()
+            texture = Texture.create(size=(frame.shape[1], frame.shape[0]), colorfmt='bgr')
+            texture.blit_buffer(buffer, colorfmt='bgr', bufferfmt='ubyte')
+            self.ids.camera_image.texture = texture
+

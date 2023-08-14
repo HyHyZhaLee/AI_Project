@@ -1,12 +1,13 @@
 <Dashboard>:
-    padding: dp(14)
+    padding: dp(8)
     spacing: dp(16)
     BoxLayout:
         spacing: dp(16)
         orientation: 'vertical'
         size_hint_x: .75
         BoxLayout:
-            spacing: dp(16)
+            spacing: dp(8)
+            padding: dp(8)
             size_hint_y: .4
             BoxWithShadow:
                 padding: dp(8)
@@ -123,62 +124,25 @@
                         pos_hint: {"center_x":0.5, "center_y":0.5}
                         halign: "center"
         BoxLayout:
-            spacing: dp(8)
             size_hint_y: .6
-            BoxWithShadow:
-                padding: dp(8)
-                orientation: 'vertical'
+            padding: dp(8)
+            CameraWidget:
+    BoxLayout:
+        size_hint_x: .25
+        padding: dp(8)
+        BoxWithShadow:
+
+            orientation: 'vertical'
+            padding: dp(8)
+            BoxLayout:
+                size_hint_y: .05
                 Text:
                     padding:dp(8)
-                    size_hint_y: .15
-                    text:"Camera live"
+                    text:"History log"
                     font_size: app.fonts.size.h3
                     font_name: app.fonts.heading
                     color: app.colors.black
-                    size_hint_y: None
                     height: dp(24)
-                    pos_hint: {"center_y": 0.5}
-                CameraWidget:
-
-            BoxWithShadow:
-                orientation: 'vertical'
-                BoxWithShadow:
-                    orientation: 'horizontal'
-                    BoxWithShadow:
-                        size_hint_x: .3
-                    BoxWithShadow:
-                        size_hint_x: .7
-                BoxWithShadow:
-                    orientation: 'horizontal'
-                    BoxWithShadow:
-                        size_hint_x: .3
-                    BoxWithShadow:
-                        size_hint_x: .7
-                BoxWithShadow:
-                    orientation: 'horizontal'
-                    BoxWithShadow:
-                        size_hint_x: .3
-                    BoxWithShadow:
-                        size_hint_x: .7
-                        padding: dp(8)
-                        RoundedButton:
-                            text:"white button"
-                            pos_hint:{'center_x':0.5}
-                            radius: [dp(20)]
-                            bcolor: rgba(0,0,0,0)
-    BoxWithShadow:
-        size_hint_x: .25
-        orientation: 'vertical'
-        padding: dp(8)
-        BoxLayout:
-            size_hint_y: .05
-            Text:
-                padding:dp(8)
-                text:"History log"
-                font_size: app.fonts.size.h3
-                font_name: app.fonts.heading
-                color: app.colors.black
-                height: dp(24)
-                halign:"left"
-        BoxLayout:
-            size_hint_y: .95
+                    halign:"left"
+            BoxLayout:
+                size_hint_y: .95

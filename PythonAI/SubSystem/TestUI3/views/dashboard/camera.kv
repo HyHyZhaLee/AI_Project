@@ -1,0 +1,59 @@
+<CameraWidget>:
+    ScreenManager:
+        transition: NoTransition()
+        id: scrn_camera
+        Screen:
+            name: 'scrn_CameraNoConnect'
+            id: cameraNoConnect
+            CameraNoConnect:
+        Screen:
+            name: 'scrn_CameraConnected'
+            id: cameraConnected
+            #CameraConnected:
+
+<CameraNoConnect>:
+    spacing: dp(8)
+    padding: dp(8)
+    BoxWithShadow:
+        padding: dp(8)
+        spacing: dp(8)
+        orientation: 'vertical'
+        Text:
+            padding:dp(8)
+            size_hint_y: .15
+            text:"Camera live"
+            font_size: app.fonts.size.h3
+            font_name: app.fonts.heading
+            color: app.colors.black
+            size_hint_y: None
+            height: dp(24)
+            pos_hint: {"center_y": 0.5}
+        BoxLayout:
+            orientation: 'vertical'
+            padding: dp(8)
+            spacing: dp(16)
+            Image:
+                id: camera_image
+                source: './assets/imgs/NoCamera.png'
+    BoxLayout:
+        spacing: dp(8)
+        orientation: 'vertical'
+        BoxWithShadow:
+            orientation: 'horizontal'
+            BoxWithShadow:
+                size_hint_x: .3
+            BoxWithShadow:
+                size_hint_x: .7
+        BoxWithShadow:
+            orientation: 'horizontal'
+            BoxWithShadow:
+                size_hint_x: .3
+            BoxWithShadow:
+                size_hint_x: .7
+        BoxWithShadow:
+            orientation: 'horizontal'
+            BoxWithShadow:
+                size_hint_x: .3
+            BoxWithShadow:
+                size_hint_x: .7
+                padding: dp(8)
