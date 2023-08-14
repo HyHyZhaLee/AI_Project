@@ -160,7 +160,25 @@
                         size_hint_x: .3
                     BoxWithShadow:
                         size_hint_x: .7
-
-    BoxLayout:
+                        padding: dp(8)
+                        RoundedButton:
+                            text:"white button"
+                            pos_hint:{'center_x':0.5}
+                            radius: [dp(20)]
+                            bcolor: rgba(0,0,0,0)
+    BoxWithShadow:
         size_hint_x: .25
-        BoxWithShadow:
+        orientation: 'vertical'
+        padding: dp(8)
+        BoxLayout:
+            size_hint_y: .05
+            Text:
+                padding:dp(8)
+                text:"History log"
+                font_size: app.fonts.size.h3
+                font_name: app.fonts.heading
+                color: app.colors.black
+                height: dp(24)
+                halign:"left"
+        BoxLayout:
+            size_hint_y: .95

@@ -1,11 +1,6 @@
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.button import Button
 from kivy.lang import Builder
-from kivy.properties import ColorProperty, ListProperty, StringProperty
-from kivy.graphics import RoundedRectangle, Color
-from kivy.metrics import dp, sp
-from kivy.utils import rgba
 
 kv = """
 <BoxWithShadow>:
