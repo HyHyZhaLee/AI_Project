@@ -1,9 +1,8 @@
 from os.path import dirname, join
 from PIL import ImageGrab
-from kivy.garden.iconfonts import register
 from app import MainApp
 from kivy.core.window import Window
-
+from app_function.adafruit_MQTT import *
 # Lấy kích thước màn hình
 resolution = ImageGrab.grab().size
 
@@ -14,11 +13,7 @@ Window.left = (resolution[0] - 1280) // 2
 # Đặt kích thước của cửa sổ ứng dụng
 Window.size = (1280, 720)
 
-register(
-    "Feather",
-    join(dirname(__file__),'assets/fonts/feather/feather.ttf'),
-    join(dirname(__file__),'assets/fonts/feather/feather.fontd'),
-)
-
 # Tạo và chạy ứng dụng chính
+Adafruit_connect()
 MainApp().run()
+
