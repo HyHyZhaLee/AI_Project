@@ -126,12 +126,129 @@
         BoxLayout:
             size_hint_y: .6
             padding: dp(8)
-            CameraWidget:
+            spacing: dp(16)
+            BoxWithShadow:
+                padding: dp(8)
+                spacing: dp(8)
+                orientation: 'vertical'
+                Text:
+                    padding:dp(8)
+                    size_hint_y: .15
+                    text:"Camera live"
+                    font_size: app.fonts.size.h3
+                    font_name: app.fonts.heading
+                    color: app.colors.black
+                    size_hint_y: None
+                    height: dp(24)
+                    pos_hint: {"center_y": 0.5}
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding: dp(8)
+                    spacing: dp(16)
+                    Image:
+                        id: cameraView
+                        source: './assets/imgs/NoCamera.png'
+            BoxWithShadow:
+                padding: dp(8)
+                spacing: dp(8)
+                orientation: 'vertical'
+                Text:
+                    padding:dp(8)
+                    size_hint_y: .15
+                    text:"ESP32 camera setup"
+                    font_size: app.fonts.size.h3
+                    font_name: app.fonts.heading
+                    color: app.colors.black
+                    size_hint_y: None
+                    height: dp(24)
+                    pos_hint: {"center_y": 0.5}
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    Image:
+                        size_hint_y: .35
+                        source: './assets/imgs/ESP32-CAM.png'
+                    BoxLayout:
+                        size_hint_y:.65
+                        orientation: 'vertical'
+                        padding: dp(16)
+                        spacing: dp(8)
+                        BoxLayout:
+                            MDFloatLayout:
+                                size_hint:1,1
+                                pos_hint:{"center_x":.5,"center_y":.41}
+                                canvas:
+                                    Color:
+                                        rgb: (238/255,238/255,238/255,1)
+                                    RoundedRectangle:
+                                        size: self.size
+                                        pos: self.pos
+                                        radius:[30]
+                                TextInput:
+                                    hint_text: "IP for camera webserver"
+                                    size_hint:1,None
+                                    pos_hint:{"center_x":.5,"center_y":.5}
+                                    height: self.minimum_height
+                                    multiline: False
+                                    cursor_color: 57/255,66/255,143/255,1
+                                    cursor_width:"2sp"
+                                    foreground_color:57/255,66/255,143/255,1
+                                    background_color:0,0,0,0
+                                    padding:dp(24)
+                                    font_name: app.fonts.heading
+                                    font_size: dp(16)
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            spacing: dp(6)
+                            Button:
+                                id: btn_connect
+                                size_hint_x: .35
+                                text: "Connect"
+                                font_name: app.fonts.heading
+                                font_size: dp(16)
+                                pos_hint:{"center_x":.29,"center_y":.4}
+                                background_color: 0,0,0,0
+                                color:1,1,1,1
+                                canvas.before:
+                                    Color:
+                                        rgb:11/255,205/255,215/255
+                                    RoundedRectangle:
+                                        size:self.size
+                                        pos:self.pos
+                                        radius:[30]
+                                on_press:root.btn_connect_on_press()
+                                on_release:root.btn_connect_on_release()
+
+                            Text:
+                                size_hint_x: .1
+                                text:"OR"
+                                font_name: app.fonts.heading
+                                color: app.colors.black
+                                font_size: dp(16)
+                                pos_hint:{"center_x":.29,"center_y":.4}
+                                halign: "center"
+                            Button:
+                                id: btn_webcam
+                                size_hint_x: .45
+                                text: "Use webcam"
+                                font_name: app.fonts.heading
+                                font_size: dp(16)
+                                pos_hint:{"center_x":.29,"center_y":.4}
+                                background_color: 0,0,0,0
+                                color:1,1,1,1
+                                canvas.before:
+                                    Color:
+                                        rgb:11/255,205/255,215/255
+                                    RoundedRectangle:
+                                        size:self.size
+                                        pos:self.pos
+                                        radius:[30]
+                                on_press:root.btn_webcam_on_press()
+                                on_release:root.btn_webcam_on_release()
     BoxLayout:
         size_hint_x: .25
         padding: dp(8)
         BoxWithShadow:
-
             orientation: 'vertical'
             padding: dp(8)
             BoxLayout:
@@ -146,3 +263,6 @@
                     halign:"left"
             BoxLayout:
                 size_hint_y: .95
+                Terminal:
+                    id: terminal
+

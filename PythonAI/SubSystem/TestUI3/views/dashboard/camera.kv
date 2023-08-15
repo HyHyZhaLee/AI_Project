@@ -50,15 +50,14 @@
             pos_hint: {"center_y": 0.5}
         BoxLayout:
             orientation: 'vertical'
-            padding: dp(6)
-            spacing: dp(6)
+
             Image:
                 size_hint_y: .35
                 source: './assets/imgs/ESP32-CAM.png'
             BoxLayout:
                 size_hint_y:.65
                 orientation: 'vertical'
-                padding: dp(8)
+                padding: dp(16)
                 spacing: dp(8)
                 BoxLayout:
                     MDFloatLayout:
@@ -81,13 +80,14 @@
                             cursor_width:"2sp"
                             foreground_color:57/255,66/255,143/255,1
                             background_color:0,0,0,0
-                            padding:15
+                            padding:dp(24)
                             font_name: app.fonts.heading
                             font_size: dp(16)
                 BoxLayout:
                     orientation: 'horizontal'
                     spacing: dp(6)
                     Button:
+                        id: btn_connect
                         size_hint_x: .35
                         text: "Connect"
                         font_name: app.fonts.heading
@@ -102,14 +102,19 @@
                                 size:self.size
                                 pos:self.pos
                                 radius:[30]
+                        on_press:root.btn_connect_on_press()
+                        on_release:root.btn_connect_on_release()
+
                     Text:
                         size_hint_x: .1
                         text:"OR"
                         font_name: app.fonts.heading
+                        color: app.colors.black
                         font_size: dp(16)
                         pos_hint:{"center_x":.29,"center_y":.4}
                         halign: "center"
                     Button:
+                        id: btn_webcam
                         size_hint_x: .45
                         text: "Use webcam"
                         font_name: app.fonts.heading
@@ -124,3 +129,5 @@
                                 size:self.size
                                 pos:self.pos
                                 radius:[30]
+                        on_press:root.btn_webcam_on_press()
+                        on_release:root.btn_webcam_on_release()
