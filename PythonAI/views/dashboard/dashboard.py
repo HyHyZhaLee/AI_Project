@@ -1,15 +1,13 @@
 from kivy.clock import Clock
 from kivy.core.image import Texture
 from kivy.lang import Builder
-from kivy.uix.boxlayout import BoxLayout
-import cv2
-import numpy as np
 from kivymd.uix.boxlayout import MDBoxLayout
-from adafruit_MQTT import *
+from app_function.Camera import *
 Builder.load_file('views/dashboard/dashboard.kv')
 
-class Dashboard(MDBoxLayout):
+recent_cap = cv2.VideoCapture(0)
 
+class Dashboard(MDBoxLayout):
     def __init__(self, **kw) -> None:
         super().__init__(**kw)
 
@@ -20,21 +18,39 @@ class Dashboard(MDBoxLayout):
     def btn_connect_on_press(self):
         button = self.ids.btn_connect
         button.canvas.before.children[0].rgb = (0.2, 0.5, 0.7, 1)
-        self.ids.terminal.print_terminal("Connecting to camera...")
+        if self.ids.IP.text == "":
+            self.ids.terminal.print_terminal("Connecting to webcam...")
+        else:
+            self.ids.terminal.print_terminal("Connecting to Camera IP:... " + self.ids.IP.text)
 
     def btn_connect_on_release(self):
         button = self.ids.btn_connect
         button.canvas.before.children[0].rgb = (11 / 255, 205 / 255, 215 / 255)
-        self.capture = cv2.VideoCapture(0)
+
+        global recent_cap
+        recent_cap.release()
+        cv2.destroyAllWindows()
+        if self.ids.IP.text == "":
+            self.capture = Camera(0).camera
+            recent_cap = self.capture
+        else:
+            self.capture = Camera(self.ids.IP.text).camera
+
         Clock.schedule_interval(self.load_video, 1.0 / 30.0)
 
     def btn_webcam_on_press(self):
         button = self.ids.btn_webcam
         button.canvas.before.children[0].rgb = (0.2, 0.5, 0.7, 1)
-        self.ids.terminal.print_terminal("Connecting to camera...")
+        self.ids.terminal.print_terminal("Connecting to webcam...")
+
     def btn_webcam_on_release(self):
         button = self.ids.btn_webcam
         button.canvas.before.children[0].rgb = (11 / 255, 205 / 255, 215 / 255)
+        global recent_cap
+        recent_cap.release()
+        cv2.destroyAllWindows()
+        self.capture = Camera(0).camera
+        recent_cap = self.capture
 
     def load_video(self, dt):
         ret, frame = self.capture.read()

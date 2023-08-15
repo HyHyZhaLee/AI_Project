@@ -1,8 +1,11 @@
 from kivy.app import App
+from kivy.clock import Clock
 from kivy.utils import QueryDict, rgba
 from kivy.metrics import dp, sp
 from kivymd.app import MDApp
 from .view import MainWindow
+from app_function.PrivateTask.task1 import *
+from app_function.PrivateTask.task2 import *
 
 class MainApp(MDApp):
     colors = QueryDict()

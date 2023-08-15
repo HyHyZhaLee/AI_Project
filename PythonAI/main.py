@@ -1,38 +1,24 @@
-# Begin import
-import time
-from scheduler import *
-from PrivateTask.task1 import *
-from PrivateTask.task2 import *
+from os.path import dirname, join
+from PIL import ImageGrab
+from kivy.garden.iconfonts import register
+from app import MainApp
+from kivy.core.window import Window
 
-# End import
+# Lấy kích thước màn hình
+resolution = ImageGrab.grab().size
 
-# Link to adafruit: https://io.adafruit.com/AI_ProjectHGL/dashboards/ai-hgl
+# Đặt cửa sổ ứng dụng nằm ở giữa màn hình
+Window.top = (resolution[1] - 720) // 2
+Window.left = (resolution[0] - 1280) // 2
 
-# Setting up
-# Setup camera
-camera = Camera(0)
+# Đặt kích thước của cửa sổ ứng dụng
+Window.size = (1280, 720)
 
-# Set up scheduler
-scheduler = Scheduler()
+register(
+    "Feather",
+    join(dirname(__file__),'assets/fonts/feather/feather.ttf'),
+    join(dirname(__file__),'assets/fonts/feather/feather.fontd'),
+)
 
-# Adding task
-task1 = Task1()  # Connect to adafruit task (1 shot task)
-task2 = Task2(camera)  # Uploading image and AI_Result with IP task
-
-scheduler.add_task(task1.run, 0, 0)
-scheduler.add_task(task2.run, 3000, 100)  # Camera delay for 3s and run checking every 100ms
-scheduler.add_task(task2.publishResult, 3000, 5000)  # Delay for 3s and Publish AI result with confident score every 5s
-scheduler.add_task(task2.publishImage, 3000, 5000)  # Delay for 3s and Publish Image every 100ms
-
-# Clock cycle define for time.sleep more effective
-next_time = time.time() + 1  # The next cycle
-
-# Super loop program
-while True:
-    current_time = time.time()  # This time cycle
-    if current_time >= next_time:
-        # TODO
-        scheduler.update()  # scheduler timer run
-        scheduler.dispatch_tasks()  # dispatch tasks that on run flag
-        next_time += 1  # Update the start of the next cycle
-    time.sleep(0.01)  # Sleep a very small time to avoid excessive CPU usage
+# Tạo và chạy ứng dụng chính
+MainApp().run()

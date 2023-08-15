@@ -1,5 +1,5 @@
-from Camera import *
-from adafruit_MQTT import *
+from app_function.Camera import *
+from app_function.adafruit_MQTT import *
 
 class Task2:
     def __init__(self, camera):

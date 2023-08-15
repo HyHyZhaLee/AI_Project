@@ -11,10 +11,10 @@ class Camera:
         np.set_printoptions(suppress=True)
 
         # Load the model
-        self.model = load_model("keras_Model.h5", compile=False)
+        self.model = load_model("app_function/keras_model.h5", compile=False)
 
         # Load the labels
-        self.class_names = open("labels.txt", "r").readlines()
+        self.class_names = open("app_function/labels.txt", "r").readlines()
 
         # CAMERA can be 0 or 1 based on default camera of your computer
         # An ip of your camera can be used as well
