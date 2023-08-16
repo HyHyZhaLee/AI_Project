@@ -45,5 +45,12 @@ class Gauge(BoxLayout):
     def __init__(self, **kwargs):
         super(Gauge, self).__init__(**kwargs)
         self.percent = 270/(self.max_value - self.min_value) * (self.value-self.min_value)
+    def re_draw(self):
+        with self.canvas:
+            self.canvas.clear()
+            self._refresh_text()
+        #TODO
+
+
 class GaugeWithName(BoxLayout):
     pass

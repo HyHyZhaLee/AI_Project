@@ -3,7 +3,7 @@ import cv2  # Install opencv-python
 import numpy as np
 import base64
 import requests
-
+from app_function.adafruit_MQTT import publish
 
 class Camera:
     def __init__(self, IP):
@@ -27,7 +27,9 @@ class Camera:
             stream_url = 'http://{}:{}/stream'.format(IP, port)
             # Tạo một đối tượng VideoCapture với URL streaming
             self.camera = cv2.VideoCapture(stream_url)
-
+        self.ai_result = ""
+        self.confident = ""
+        self.image = ""
     def ai_detector(self):
         # Grab the web camera's image.
         ret, image = self.camera.read()
@@ -72,3 +74,12 @@ class Camera:
             print('LED brightness has been adjusted successfully.')
         else:
             print('LED brightness cannot be adjusted.')
+
+    def publishImage(self,dt):
+        self.ai_result, self.confident, self.image = self.ai_detector()
+        publish("image", self.image)
+
+    def publishResult(self,dt):
+        self.ai_result, self.confident, self.image = self.ai_detector()
+        publish("ai", self.ai_result)
+        publish("confident-score", self.confident)
